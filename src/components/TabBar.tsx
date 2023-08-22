@@ -1,10 +1,24 @@
-import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
+import { BottomTabNavigationEventMap } from '@react-navigation/bottom-tabs';
+import { BottomTabBarProps } from '@react-navigation/bottom-tabs/lib/typescript/src/types';
+import { NavigationHelpers, TabNavigationState } from '@react-navigation/native';
 import IconBase from 'components/common/icons';
+import { IconKindType } from 'components/common/icons/icon.interface';
 import { ColorCodes } from 'constants/colors';
+import { BottomTabParamList } from 'navigation/BottomTap.navigation';
 import React from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
-export default function TabBar({ state, descriptors, navigation }: BottomTabBarProps) {
+interface IBottomTabBarProps extends BottomTabBarProps {
+  state: TabNavigationState<BottomTabParamList>;
+  navigation: NavigationHelpers<BottomTabParamList, BottomTabNavigationEventMap>;
+}
+
+export default function TabBar({ state, descriptors, navigation }: IBottomTabBarProps) {
+  const tabBarIcon: Record<keyof BottomTabParamList, IconKindType> = {
+    Test1: 'bell',
+    Test2: 'bell',
+  };
+
   return (
     <View style={styles.container}>
       {state.routes.map((route, index) => {
@@ -48,7 +62,10 @@ export default function TabBar({ state, descriptors, navigation }: BottomTabBarP
             style={styles.eachTab}
             key={label}
           >
-            <IconBase icon="bell" color={isFocused ? ColorCodes.blue : ColorCodes.black} />
+            <IconBase
+              icon={tabBarIcon[route.name]}
+              color={isFocused ? ColorCodes.blue : ColorCodes.black}
+            />
             <Text style={{ color: isFocused ? ColorCodes.blue : ColorCodes.black }}>{label}</Text>
           </Pressable>
         );
