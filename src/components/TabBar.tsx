@@ -18,7 +18,7 @@ export default function TabBar({ state, descriptors, navigation }: IBottomTabBar
 
   return (
     <View style={styles.container}>
-      {state.routes.slice(0, 2).map((route, index) => {
+      {state.routes.slice(0, tabBarIcons.length).map((route, index) => {
         const { options } = descriptors[route.key];
         const label =
           options.tabBarLabel !== undefined && typeof options.tabBarLabel === 'string'
