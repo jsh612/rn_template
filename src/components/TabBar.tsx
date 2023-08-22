@@ -14,14 +14,11 @@ interface IBottomTabBarProps extends BottomTabBarProps {
 }
 
 export default function TabBar({ state, descriptors, navigation }: IBottomTabBarProps) {
-  const tabBarIcon: Record<keyof BottomTabParamList, IconKindType> = {
-    Test1: 'bell',
-    Test2: 'bell',
-  };
+  const tabBarIcons: IconKindType[] = ['bell', 'bell'];
 
   return (
     <View style={styles.container}>
-      {state.routes.map((route, index) => {
+      {state.routes.slice(0, 2).map((route, index) => {
         const { options } = descriptors[route.key];
         const label =
           options.tabBarLabel !== undefined && typeof options.tabBarLabel === 'string'
@@ -63,7 +60,7 @@ export default function TabBar({ state, descriptors, navigation }: IBottomTabBar
             key={label}
           >
             <IconBase
-              icon={tabBarIcon[route.name]}
+              icon={tabBarIcons[index]}
               color={isFocused ? ColorCodes.blue : ColorCodes.black}
             />
             <Text style={{ color: isFocused ? ColorCodes.blue : ColorCodes.black }}>{label}</Text>
