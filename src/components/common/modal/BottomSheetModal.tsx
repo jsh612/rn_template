@@ -16,7 +16,6 @@ export default function BottomSheetModal(props: IModalProps) {
     children,
     isAwareKeyboard = false,
     paddingTop,
-    isSafeView = true,
     onModalHide,
   } = props;
 
